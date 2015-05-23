@@ -13,6 +13,7 @@ public class ComponentTest
     public ComponentTest()
     {
         //constructor
+        this.helloworld();
     }
 
     public void helloworld()

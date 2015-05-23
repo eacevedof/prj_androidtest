@@ -3,10 +3,14 @@ package com.example.ioedu.fristapp;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.Contacts;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import theframework.ComponentTest;
 
 
 //CURSO: https://www.youtube.com/watch?v=p3uGVNEaXMU
@@ -19,13 +23,14 @@ public class MainActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //this.access();
         Log.d("Hello World", "onCreate");
+        this.access();
+        //this.access_contact();
         //el intent se usa para pasar información entre actividades
         //params: (act sobre la ue se esta,clase con la q queremos comenzar este intent )
-        Intent oIntent = new Intent(this,SecondActivity.class);
+        //Intent oIntent = new Intent(this,SecondActivity.class);
         //creamos el valor a pasar (clave, valor)
-        oIntent.putExtra("firstValue","My first Value from MainActivity");
+        //oIntent.putExtra("firstValue","My first Value from MainActivity");
         //Inicia la actividad asociada al Intent
         //startActivity(oIntent);
     }
@@ -117,7 +122,22 @@ public class MainActivity extends Activity
     public void access()
     {
         ContentResolver a = getContentResolver();
-        //ComponentTest oComponentTest = new ComponentTest();
-        //oComponentTest.access(a);
+        ComponentTest oComponentTest = new ComponentTest();
+        oComponentTest.access(a);
+    }
+
+    public void access_contact()
+    {
+        ContentResolver oCR = getContentResolver();
+        Cursor oCursor = oCR.query(Contacts.People.CONTENT_URI,null,null,null,null);
+        if(oCursor.getCount()>0)
+        {
+            while (oCursor.moveToNext())
+            {
+                String sId = oCursor.getString(oCursor.getColumnIndex(Contacts.People._ID));
+                String sName = oCursor.getString(oCursor.getColumnIndex(Contacts.People.NAME));
+                Log.d("DATOS CONTACTO",sId+":"+sName);
+            }
+        }
     }
 }
