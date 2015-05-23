@@ -1,8 +1,7 @@
-package com.example.ioedu.fristapp;
+package com.example.ioedu.firstapp;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.Contacts;

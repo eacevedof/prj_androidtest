@@ -1,4 +1,4 @@
-package com.example.ioedu.fristapp;
+package com.example.ioedu.firstapp;
 
 import android.app.Activity;
 import android.os.Bundle;
