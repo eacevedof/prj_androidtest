@@ -18,12 +18,15 @@
             android:label="@string/app_name" >
         </activity>
 
-        <activity android:name=".LocationActivity">
+        <activity android:name=".SensorActivity">
             <intent-filter>
                 <!-- indica que es la actividad principal -->
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LocationActivity">
+
         </activity>
 
         <activity android:name=".SecondActivity"></activity>
