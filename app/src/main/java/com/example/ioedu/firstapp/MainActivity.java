@@ -2,7 +2,9 @@ package com.example.ioedu.firstapp;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.IntentFilter;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.util.Log;
@@ -17,13 +19,15 @@ import theframework.ComponentTest;
 public class MainActivity extends Activity
 {
 
+    private HelloBroadcastReceiver oBcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d("Hello World", "onCreate");
-        this.access();
+        //this.access();
         //this.access_contact();
         //el intent se usa para pasar información entre actividades
         //params: (act sobre la ue se esta,clase con la q queremos comenzar este intent )
@@ -32,6 +36,11 @@ public class MainActivity extends Activity
         //oIntent.putExtra("firstValue","My first Value from MainActivity");
         //Inicia la actividad asociada al Intent
         //startActivity(oIntent);
+        //30/05/2015.16:41 video(49:10)
+        //Registrando un receiver por código de manera dinámica
+
+
+
     }
 
     @Override
@@ -63,8 +72,12 @@ public class MainActivity extends Activity
     @Override
     protected void onResume()
     {
+        //tenemos la variable declarada pero no inicializada oBcastReceiver
+        this.oBcastReceiver = new HelloBroadcastReceiver();
+        //(objeto receiver, oIntent(evento que esstara escuchando)
+        registerReceiver(this.oBcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
         super.onResume();
-        Log.d("Hello World", "onResume");
+        Log.d("Hello World", "onResume - Registro el receiver");
     }
 
     @Override
@@ -76,8 +89,10 @@ public class MainActivity extends Activity
     @Override
     protected void onPause()
     {
+        //desregistrar el recevier cuando ya no se utilice
+        unregisterReceiver(this.oBcastReceiver);
         super.onPause();
-        Log.d("Hello World", "onPause");
+        Log.d("Hello World", "onPause - unregister receiver");
     }
 
     @Override
@@ -120,6 +135,7 @@ public class MainActivity extends Activity
 
     public void access()
     {
+        //Acceder a datos de otras aplicaciones
         ContentResolver a = getContentResolver();
         ComponentTest oComponentTest = new ComponentTest();
         oComponentTest.access(a);
