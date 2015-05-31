@@ -25,7 +25,10 @@ public class NoteActivity extends Activity
     public void onCreate(Bundle oBundle)
     {
         super.onCreate(oBundle);
-        Log.d("path context",String.valueOf(getApplicationContext()));
+        //android.app.Application@472b594
+        Log.d("context", String.valueOf(getApplicationContext()));
+        ///data/data/com.example.ioedu.firstapp
+        Log.d("apppath",getApplicationInfo().dataDir);
         setContentView(R.layout.note);
         llyNote = (LinearLayout) findViewById(R.id.llyNote);
         butAddNote = (Button)findViewById(R.id.butAddNote);
@@ -44,6 +47,7 @@ public class NoteActivity extends Activity
     private void read_note()
     {
         File oFiledir = getFilesDir();
+        ///data/data/com.example.ioedu.firstapp/files
         Log.d("oFiledir",String.valueOf(oFiledir));
         for(String sFileName : oFiledir.list())
         {
